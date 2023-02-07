@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Currency converter Web App</title>
+    
+      {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'currency/styles.css' %}" />
+    
+   </head>
+   <body>
+      <div class="container">
+         <h1>Currency converter Web App</h1>
+         <form method="post" action="{% url 'home' %}">
+         {% csrf_token %}
+         <!-- Amount input -->
+         <div class="select-text">
+            <input  name="amount" type="text">
+         </div>
+         <br>
+         
+         <div class="select-wrapper">
+            <!-- From options -->
+            <select name="currency_from" class="select">
+               {% for c in currency_data %}
+               <option value="{{c.cc}}">{{c.name}}</option>
+               {% endfor %}
+            </select>
+         </div>
+
+         <br>
+         <div class="select-wrapper">
+            <!-- To options -->
+            <select name="currency_to" class="select">
+               {% for c in currency_data %}
+               <option value="{{c.cc}}">{{c.name}}</option>
+               {% endfor %}
+            </select>
+         </div>
+
+         <br>
+         <div class="select-submit">
+            <input type="submit" value="Convert">
+         </div>
+         <!-- Converter result -->
+         {% if source %}
+         <h2>{{ source }} is equal to {{ result }} {{ currency_to }}</h2>
+         {% endif %}
+      </div>
+   </body>
+</html>
